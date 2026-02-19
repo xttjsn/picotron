@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: picotron-training
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: picotron
+        image: picotron:latest
+        imagePullPolicy: Never
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            nvidia.com/gpu: "1"
+        command: ["python", "train.py", "--steps", "200", "--device", "cuda",
+                  "--hidden", "256", "--layers", "4", "--heads", "4",
+                  "--seq-len", "128", "--micro-batch", "4"]
