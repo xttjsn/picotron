@@ -7,6 +7,7 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      runtimeClassName: nvidia
       containers:
       - name: picotron
         image: picotron:latest
